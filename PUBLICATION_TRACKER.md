@@ -6,6 +6,21 @@ Statut de publication : **bloqué volontairement**.
 
 Yapalaan ne doit pas être publié tant que toutes les phases ci-dessous ne sont pas validées.
 
+## Plan croissance et marketing
+
+Statut : **préparé, exécution terrain requise**
+
+- [x] Etape 2 à publication structurée dans `STEP_2_TO_LAUNCH_MASTER_PLAN.md`.
+- [x] Playbook confiance et sécurité.
+- [x] Playbook acquisition vendeurs.
+- [x] Playbook marketing acheteurs.
+- [x] Calendrier contenu 60 jours.
+- [x] Tableau KPI et revenus.
+- [ ] Recruter 50 vendeurs vérifiés.
+- [ ] Obtenir 100 commandes réussies.
+- [ ] Valider taux de livraison réussie de 90%.
+- [ ] Lancer campagne payante après validation checkout/paiement.
+
 ## Phase 1 - MVP local
 
 Statut : **validée localement**
@@ -40,6 +55,7 @@ Statut : **validée localement, droits images à confirmer avant publication**
 - [ ] Confirmer les droits d'utilisation des images.
 - [x] Ajouter descriptions finales courtes.
 - [x] Supprimer les données de démonstration non nécessaires.
+- [x] Remplacer les promesses marketing trop fortes par des preuves actuelles dans l'interface.
 
 ## Phase 3 - Vendeur
 
@@ -150,4 +166,4 @@ Statut : **préparée, bloquée volontairement**
 
 ## Prochaine action active
 
-Etape 1 en cours : le checkout serveur est prepare. Prochaine action obligatoire : deployer l'Edge Function `create-checkout-order`, renseigner `VITE_YAPALAAN_CHECKOUT_API_URL`, tester un achat reel en mode Supabase, puis retirer le RPC SQL public.
+Etape 2 a la publication preparee. Prochaine action obligatoire : deployer l'Edge Function `create-checkout-order`, finaliser le paiement test, puis commencer le recrutement vendeur avec le playbook.

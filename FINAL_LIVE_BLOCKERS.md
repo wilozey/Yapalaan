@@ -37,6 +37,9 @@ Date : 2026-05-27
 - Index de performance ajoutes.
 - Checkout Supabase teste via API publique et nettoye.
 - Edge Function checkout ajoutee au code.
+- Plan croissance et marketing complet prepare.
+- Playbooks vendeur, acheteur, confiance, contenu et KPI ajoutes.
+- Interface ajustee pour eviter les promesses marketing non encore prouvees.
 
 ## Decision
 

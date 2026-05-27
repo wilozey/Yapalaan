@@ -576,7 +576,7 @@ function HomeScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
             Le marché qui rapproche.
           </h1>
           <p className="mt-4 max-w-[290px] text-[15px] font-semibold leading-6 text-white/70">
-            500 vendeurs vérifiés. Paiement Wave protégé. Livraison à Abidjan en 48 h. Simple, rapide et sécurisé.
+            Produits vérifiés, vendeurs contrôlés, livreurs comparables et paiement sécurisé pour acheter local sans peur.
           </p>
           <div className="mt-5 flex gap-2">
             <button onClick={() => setScreen("product")} className="h-11 rounded-full bg-[var(--yapa-accent)] px-4 text-xs font-black text-[var(--yapa-ink)]">
@@ -596,14 +596,30 @@ function HomeScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
 
         <section className="mt-6 grid grid-cols-2 gap-3">
           <div className="rounded-[28px] bg-white p-4 text-[var(--yapa-ink)]">
-            <p className="text-3xl font-black">500+</p>
-            <p className="text-xs font-black text-[#69746d]">Vendeurs vérifiés</p>
-            <p className="mt-2 text-[10px] font-bold text-[#8a918c]">Pièce d'identité + selfie</p>
+            <p className="text-3xl font-black">10</p>
+            <p className="text-xs font-black text-[#69746d]">Produits vérifiés</p>
+            <p className="mt-2 text-[10px] font-bold text-[#8a918c]">Stock initial Yapalaan</p>
           </div>
           <div className="rounded-[28px] bg-[var(--yapa-primary)] p-4 text-[var(--yapa-primary-text)]">
-            <p className="text-3xl font-black">Wave</p>
-            <p className="text-xs font-black">Paiement sécurisé</p>
-            <p className="mt-2 text-[10px] font-bold text-[#14583f]">Séquestre jusqu'à livraison</p>
+            <p className="text-3xl font-black">12</p>
+            <p className="text-xs font-black">Livreurs listés</p>
+            <p className="mt-2 text-[10px] font-bold text-[#14583f]">Coût affiché avant achat</p>
+          </div>
+        </section>
+
+        <section className="mt-4 rounded-[30px] bg-white/10 p-4">
+          <p className="text-sm font-black">Pourquoi acheter ici ?</p>
+          <div className="mt-3 grid gap-2">
+            {[
+              ["Produit contrôlé", "Prix, état et disponibilité sont affichés avant paiement."],
+              ["Livreur au choix", "Tu vois le coût estimé et la note du livreur avant de commander."],
+              ["Protection achat", "Le suivi, le litige et l'avis restent disponibles après commande."],
+            ].map(([title, body]) => (
+              <div key={title} className="rounded-[22px] bg-white/10 p-3">
+                <p className="text-xs font-black">{title}</p>
+                <p className="mt-1 text-[10px] font-bold leading-4 text-white/62">{body}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -834,10 +850,10 @@ function ShopScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
         <section className="-mt-5 mx-5 rounded-[28px] bg-white p-4 shadow-[0_16px_34px_rgba(17,24,22,.12)]">
           <div className="grid grid-cols-4 gap-2 text-center">
             {[
-              ["1.2K", "Ventes"],
-              ["4.8", "312 avis"],
-              ["98%", "Satisfaction"],
-              ["<10 min", "Réponse"],
+              [products.length.toString(), "Produits"],
+              [seller.rating.toLocaleString("fr-FR", { maximumFractionDigits: 1 }), "Note"],
+              [seller.reviewCount.toString(), "Avis pilotes"],
+              ["12", "Livreurs"],
             ].map(([value, label]) => (
               <div key={label}>
                 <p className="text-lg font-black">{value}</p>
@@ -846,9 +862,9 @@ function ShopScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
             ))}
           </div>
           <div className="mt-4 grid gap-2 text-xs font-bold text-[#4c5d54]">
-            <p className="flex items-center gap-2"><BadgeCheck className="size-4 text-[var(--yapa-primary)]" /> Vendeur vérifié - Pièce d'identité + selfie</p>
-            <p className="flex items-center gap-2"><ShieldCheck className="size-4 text-[var(--yapa-primary)]" /> Wave ID confirmé</p>
-            <p className="flex items-center gap-2"><MapPin className="size-4 text-[var(--yapa-primary)]" /> Atelier visité - Adjamé Liberté</p>
+            <p className="flex items-center gap-2"><BadgeCheck className="size-4 text-[var(--yapa-primary)]" /> Boutique officielle Yapalaan</p>
+            <p className="flex items-center gap-2"><ShieldCheck className="size-4 text-[var(--yapa-primary)]" /> Produits contrôlés avant remise au livreur</p>
+            <p className="flex items-center gap-2"><MapPin className="size-4 text-[var(--yapa-primary)]" /> Géolocalisation boutique fournie</p>
           </div>
         </section>
 
