@@ -85,7 +85,10 @@ Statut : **appliqué réellement, tests Supabase complets à finaliser**
 - [x] Charger les 12 livreurs temporaires Abidjan.
 - [x] Ajouter les index de performance.
 - [x] Ajouter la fonction checkout controlee.
-- [ ] Remplacer le checkout RPC public par API serveur/Edge Function avant live.
+- [x] Preparer l'Edge Function checkout serveur.
+- [x] Brancher le frontend pour utiliser l'Edge Function quand son URL est configuree.
+- [ ] Deployer l'Edge Function checkout sur Supabase.
+- [ ] Retirer l'execution publique du checkout RPC SQL apres validation Edge Function.
 - [ ] Revue sécurité Supabase sans alerte advisor.
 - [x] Tester lecture produits via API publique.
 - [x] Tester écriture commandes via API publique.
@@ -147,4 +150,4 @@ Statut : **préparée, bloquée volontairement**
 
 ## Prochaine action active
 
-Phase finale entamée : domaines ajoutés, Supabase réel appliqué, RLS activée et index ajoutés. Prochaine action obligatoire : redémarrer l'app locale en mode Supabase, tester les parcours réels, puis connecter paiement et auth vendeur avant toute preview privée.
+Etape 1 en cours : le checkout serveur est prepare. Prochaine action obligatoire : deployer l'Edge Function `create-checkout-order`, renseigner `VITE_YAPALAAN_CHECKOUT_API_URL`, tester un achat reel en mode Supabase, puis retirer le RPC SQL public.

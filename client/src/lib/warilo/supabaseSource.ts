@@ -64,6 +64,7 @@ type SupabaseOrderRow = {
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+const checkoutApiUrl = import.meta.env.VITE_YAPALAAN_CHECKOUT_API_URL as string | undefined;
 
 export const isWariloSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
@@ -114,6 +115,57 @@ const request = async <T>(path: string, init?: RequestInit): Promise<T> => {
   }
 
   return (await response.json()) as T;
+};
+
+const createCheckoutOrder = async (input: WariloCreateOrderInput): Promise<SupabaseOrderRow> => {
+  if (checkoutApiUrl) {
+    const response = await fetch(checkoutApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        buyerId: input.buyerId,
+        sellerId: input.sellerId,
+        productId: input.productId,
+        courierId: input.courierId,
+        deliveryContact: input.buyerDeliveryContact,
+        paymentMethod: input.paymentMethod,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Checkout request failed: ${response.status}`);
+    }
+
+    return (await response.json()) as SupabaseOrderRow;
+  }
+
+  const orders = await request<SupabaseOrderRow[]>("rpc/create_yapalaan_checkout_order", {
+    method: "POST",
+    body: JSON.stringify({
+      p_buyer_id: input.buyerId,
+      p_seller_id: input.sellerId,
+      p_product_id: input.productId,
+      p_courier_id: input.courierId,
+      p_delivery_commune: input.buyerDeliveryContact.locationLabel,
+      p_delivery_landmark: input.buyerDeliveryContact.locationLabel,
+      p_delivery_notes: input.buyerDeliveryContact.deliveryInstructions,
+      p_buyer_phone: input.buyerDeliveryContact.phone,
+      p_buyer_whatsapp: input.buyerDeliveryContact.whatsapp,
+      p_buyer_email: input.buyerDeliveryContact.email,
+      p_buyer_location_label: input.buyerDeliveryContact.locationLabel,
+      p_buyer_latitude: input.buyerDeliveryContact.latitude,
+      p_buyer_longitude: input.buyerDeliveryContact.longitude,
+      p_payment_method: input.paymentMethod,
+    }),
+  });
+
+  if (!orders[0]) {
+    throw new Error("Supabase did not return the created order");
+  }
+
+  return orders[0];
 };
 
 const mapProduct = (row: SupabaseProductRow): WariloProduct => ({
@@ -207,30 +259,7 @@ export const supabaseWariloSource: WariloDataSource = {
     return rows[0] ? mapSeller(rows[0]) : null;
   },
   createOrder: async (input: WariloCreateOrderInput) => {
-    const orders = await request<SupabaseOrderRow[]>("rpc/create_yapalaan_checkout_order", {
-      method: "POST",
-      body: JSON.stringify({
-        p_buyer_id: input.buyerId,
-        p_seller_id: input.sellerId,
-        p_product_id: input.productId,
-        p_courier_id: input.courierId,
-        p_delivery_commune: input.buyerDeliveryContact.locationLabel,
-        p_delivery_landmark: input.buyerDeliveryContact.locationLabel,
-        p_delivery_notes: input.buyerDeliveryContact.deliveryInstructions,
-        p_buyer_phone: input.buyerDeliveryContact.phone,
-        p_buyer_whatsapp: input.buyerDeliveryContact.whatsapp,
-        p_buyer_email: input.buyerDeliveryContact.email,
-        p_buyer_location_label: input.buyerDeliveryContact.locationLabel,
-        p_buyer_latitude: input.buyerDeliveryContact.latitude,
-        p_buyer_longitude: input.buyerDeliveryContact.longitude,
-        p_payment_method: input.paymentMethod,
-      }),
-    });
-    const order = orders[0];
-
-    if (!order) {
-      throw new Error("Supabase did not return the created order");
-    }
+    const order = await createCheckoutOrder(input);
 
     const orderId = order.id ?? order.order_id;
 

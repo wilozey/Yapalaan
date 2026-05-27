@@ -5,7 +5,8 @@ Date : 2026-05-27
 ## Bloquants techniques
 
 - Test complet de l'app locale en mode Supabase a finaliser.
-- Fonction checkout publique `SECURITY DEFINER` a remplacer par API serveur/Edge Function avant live.
+- Edge Function checkout a deployer sur Supabase.
+- Fonction checkout publique `SECURITY DEFINER` a desactiver apres validation de l'Edge Function.
 - Authentification vendeur reelle a finaliser.
 - Paiement reel non branche.
 - Backend paiement securise absent.
@@ -35,6 +36,7 @@ Date : 2026-05-27
 - RLS appliquee avec avertissement Supabase documente sur le checkout public.
 - Index de performance ajoutes.
 - Checkout Supabase teste via API publique et nettoye.
+- Edge Function checkout ajoutee au code.
 
 ## Decision
 
