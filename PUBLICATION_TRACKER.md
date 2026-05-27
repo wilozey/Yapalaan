@@ -70,7 +70,7 @@ Statut : **validée localement, Supabase requis pour production**
 
 ## Phase 5 - Supabase
 
-Statut : **préparé localement, non activé**
+Statut : **appliqué réellement, tests Supabase complets à finaliser**
 
 - [x] Fichier `.env.example`.
 - [x] Schéma SQL Supabase.
@@ -79,13 +79,20 @@ Statut : **préparé localement, non activé**
 - [x] Mapping Supabase des champs produit, livreur et commission.
 - [x] Script RLS durci préparé.
 - [x] Runbook application réelle Supabase préparé.
-- [ ] Appliquer le schéma dans Supabase.
-- [ ] Ajouter clé anon dans `.env.local`.
-- [ ] Tester lecture produits.
-- [ ] Tester écriture commandes.
+- [x] Appliquer le schéma dans Supabase.
+- [x] Ajouter clé anon publique dans `.env.local`.
+- [x] Charger les 10 produits Yapalaan.
+- [x] Charger les 12 livreurs temporaires Abidjan.
+- [x] Ajouter les index de performance.
+- [x] Ajouter la fonction checkout controlee.
+- [ ] Remplacer le checkout RPC public par API serveur/Edge Function avant live.
+- [ ] Revue sécurité Supabase sans alerte advisor.
+- [x] Tester lecture produits via API publique.
+- [x] Tester écriture commandes via API publique.
+- [ ] Tester lecture produits depuis l'interface locale après redémarrage.
 - [ ] Tester gestion vendeurs.
 - [ ] Tester gestion livreurs.
-- [ ] Activer RLS correctement.
+- [x] Activer RLS correctement.
 
 ## Phase 6 - Paiement réel
 
@@ -140,4 +147,4 @@ Statut : **préparée, bloquée volontairement**
 
 ## Prochaine action active
 
-Phase finale entamée : domaines ajoutés, Supabase/RLS/live préparés. Prochaine action obligatoire : appliquer Supabase réellement depuis le dashboard ou fournir un accès Supabase exploitable, puis tester en preview privée.
+Phase finale entamée : domaines ajoutés, Supabase réel appliqué, RLS activée et index ajoutés. Prochaine action obligatoire : redémarrer l'app locale en mode Supabase, tester les parcours réels, puis connecter paiement et auth vendeur avant toute preview privée.

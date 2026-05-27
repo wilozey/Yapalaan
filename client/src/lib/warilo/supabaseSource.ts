@@ -56,7 +56,8 @@ type SupabaseCourierRow = {
 };
 
 type SupabaseOrderRow = {
-  id: string;
+  id?: string;
+  order_id?: string;
   total_amount_fcfa: number;
   status: WariloCreatedOrder["status"];
 };
@@ -206,26 +207,23 @@ export const supabaseWariloSource: WariloDataSource = {
     return rows[0] ? mapSeller(rows[0]) : null;
   },
   createOrder: async (input: WariloCreateOrderInput) => {
-    const totalAmountFcfa = input.productAmountFcfa + input.deliveryFeeFcfa;
-    const orders = await request<SupabaseOrderRow[]>("warilo_orders", {
+    const orders = await request<SupabaseOrderRow[]>("rpc/create_yapalaan_checkout_order", {
       method: "POST",
       body: JSON.stringify({
-        buyer_id: input.buyerId,
-        seller_id: input.sellerId,
-        courier_id: input.courierId,
-        total_amount_fcfa: totalAmountFcfa,
-        delivery_fee_fcfa: input.deliveryFeeFcfa,
-        delivery_commission_fcfa: input.deliveryCommissionFcfa,
-        delivery_commune: input.buyerDeliveryContact.locationLabel,
-        delivery_landmark: input.buyerDeliveryContact.locationLabel,
-        delivery_notes: input.buyerDeliveryContact.deliveryInstructions,
-        buyer_phone: input.buyerDeliveryContact.phone,
-        buyer_whatsapp: input.buyerDeliveryContact.whatsapp,
-        buyer_email: input.buyerDeliveryContact.email,
-        buyer_location_label: input.buyerDeliveryContact.locationLabel,
-        buyer_latitude: input.buyerDeliveryContact.latitude,
-        buyer_longitude: input.buyerDeliveryContact.longitude,
-        payment_method: input.paymentMethod,
+        p_buyer_id: input.buyerId,
+        p_seller_id: input.sellerId,
+        p_product_id: input.productId,
+        p_courier_id: input.courierId,
+        p_delivery_commune: input.buyerDeliveryContact.locationLabel,
+        p_delivery_landmark: input.buyerDeliveryContact.locationLabel,
+        p_delivery_notes: input.buyerDeliveryContact.deliveryInstructions,
+        p_buyer_phone: input.buyerDeliveryContact.phone,
+        p_buyer_whatsapp: input.buyerDeliveryContact.whatsapp,
+        p_buyer_email: input.buyerDeliveryContact.email,
+        p_buyer_location_label: input.buyerDeliveryContact.locationLabel,
+        p_buyer_latitude: input.buyerDeliveryContact.latitude,
+        p_buyer_longitude: input.buyerDeliveryContact.longitude,
+        p_payment_method: input.paymentMethod,
       }),
     });
     const order = orders[0];
@@ -234,18 +232,14 @@ export const supabaseWariloSource: WariloDataSource = {
       throw new Error("Supabase did not return the created order");
     }
 
-    await request("warilo_order_items", {
-      method: "POST",
-      body: JSON.stringify({
-        order_id: order.id,
-        product_id: input.productId,
-        quantity: 1,
-        unit_price_fcfa: input.productAmountFcfa,
-      }),
-    });
+    const orderId = order.id ?? order.order_id;
+
+    if (!orderId) {
+      throw new Error("Supabase did not return the created order id");
+    }
 
     return {
-      id: order.id,
+      id: orderId,
       totalAmountFcfa: order.total_amount_fcfa,
       status: order.status,
     };

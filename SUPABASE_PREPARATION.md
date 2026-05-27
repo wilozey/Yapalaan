@@ -1,23 +1,35 @@
-# Préparation Supabase Yapalaan
+# Preparation Supabase Yapalaan
 
-Projet Supabase prévu : `https://hkihdjqnjqauivxujaji.supabase.co`
+Projet Supabase : `https://hkihdjqnjqauivxujaji.supabase.co`
 
-Le projet reste en mode démo local tant que `VITE_WARILO_DATA_MODE=local-demo`.
+Le projet peut fonctionner en deux modes :
+
+- `local-demo` : donnees locales, utile pour travailler sans connexion Supabase.
+- `supabase` : donnees lues et ecrites dans le projet Supabase reel.
+
+## Etat actuel
+
+Supabase est applique reellement depuis le 2026-05-27.
+
+## Ordre des fichiers SQL
+
+1. `supabase/yapalaan_schema.sql`
+2. `supabase/yapalaan_seed.sql`
+3. `supabase/yapalaan_rls_hardening.sql`
+4. `supabase/yapalaan_foreign_key_indexes.sql`
+5. `supabase/yapalaan_frontend_grants.sql`
+6. `supabase/yapalaan_checkout_rpc.sql`
 
 ## Activation locale Supabase
 
-1. Ouvrir le dashboard Supabase du projet.
-2. Exécuter `supabase/yapalaan_schema.sql` dans SQL Editor.
-3. Exécuter `supabase/yapalaan_seed.sql` dans SQL Editor.
-4. Copier `.env.example` vers `.env.local`.
-5. Renseigner `VITE_SUPABASE_ANON_KEY`.
-6. Mettre `VITE_WARILO_DATA_MODE=supabase`.
-7. Redémarrer le serveur local.
-8. Tester lecture catalogue, choix livreur et création commande.
+1. Verifier que `.env.local` existe.
+2. Verifier que `VITE_WARILO_DATA_MODE=supabase`.
+3. Redemarrer le serveur local.
+4. Tester lecture catalogue, choix livreur et creation commande.
 
 ## Garde-fous
 
-- Ne pas utiliser la clé service role dans le frontend.
-- Ne pas publier tant que les politiques RLS finales ne sont pas revues.
-- Ne pas activer paiement réel pendant cette phase.
-- Revenir à `VITE_WARILO_DATA_MODE=local-demo` si Supabase n'est pas prêt.
+- Ne jamais utiliser la cle `service_role` dans le frontend.
+- Garder `.env.local` hors GitHub.
+- Ne pas publier tant que les paiements reels et la revue juridique ne sont pas valides.
+- Revenir a `VITE_WARILO_DATA_MODE=local-demo` si Supabase doit etre coupe temporairement.
