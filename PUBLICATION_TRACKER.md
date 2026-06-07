@@ -21,6 +21,22 @@ Statut : **préparé, exécution terrain requise**
 - [ ] Valider taux de livraison réussie de 90%.
 - [ ] Lancer campagne payante après validation checkout/paiement.
 
+## Module Yapalaan Import
+
+Statut : **MVP visuel prepare, backend a connecter**
+
+- [x] Integrer la strategie import Chine dans le projet.
+- [x] Ajouter ecran mobile `Import`.
+- [x] Ajouter lien Chine vers estimation FCFA.
+- [x] Ajouter calculateur cout produit, transport, douane et frais Yapalaan.
+- [x] Ajouter demande produit et achat assiste dans l'interface.
+- [x] Documenter phases Chine : lien, 1688, commandes groupees, consolidation, reseau africain.
+- [ ] Creer table Supabase `import_requests`.
+- [ ] Connecter demande import au backend.
+- [ ] Ajouter devis WhatsApp Import.
+- [ ] Ajouter statuts import.
+- [ ] Definir conditions legales import/douane.
+
 ## Phase 1 - MVP local
 
 Statut : **validée localement**
@@ -166,4 +182,4 @@ Statut : **préparée, bloquée volontairement**
 
 ## Prochaine action active
 
-Etape 2 a la publication preparee. Prochaine action obligatoire : deployer l'Edge Function `create-checkout-order`, finaliser le paiement test, puis commencer le recrutement vendeur avec le playbook.
+Etape 2 a la publication preparee et module Yapalaan Import ajoute. Prochaine action obligatoire : deployer l'Edge Function `create-checkout-order`, connecter le backend import, finaliser le paiement test, puis commencer le recrutement vendeur avec le playbook.

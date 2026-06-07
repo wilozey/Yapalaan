@@ -40,6 +40,15 @@ Date : 2026-05-27
 - Plan croissance et marketing complet prepare.
 - Playbooks vendeur, acheteur, confiance, contenu et KPI ajoutes.
 - Interface ajustee pour eviter les promesses marketing non encore prouvees.
+- Module Yapalaan Import ajoute en MVP visuel.
+
+## Blocages Import
+
+- Backend Supabase `import_requests` non cree.
+- Devis import non sauvegarde.
+- Conditions douane/import non finalisees.
+- Process fournisseur Chine non valide.
+- WhatsApp Import non connecte.
 
 ## Decision
 

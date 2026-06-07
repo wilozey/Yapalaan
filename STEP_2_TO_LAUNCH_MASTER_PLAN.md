@@ -167,3 +167,16 @@ Yapalaan est pret pour marketing plus large quand :
 ## Suggestion prioritaire
 
 La meilleure strategie n'est pas de paraitre grand tout de suite. C'est de paraitre fiable, local et humain. Quand les premieres commandes reussies existent, les chiffres reels deviendront le marketing.
+
+## Extension strategique - Yapalaan Import
+
+Nouvelle direction ajoutee le 2026-06-07 : Yapalaan doit aussi devenir une passerelle d'import entre l'Afrique et la Chine.
+
+Priorite MVP :
+
+- coller un lien Alibaba, 1688, AliExpress, Temu, DHGate ou Made-in-China ;
+- obtenir un prix final estime en FCFA ;
+- proposer "Acheter pour moi" ;
+- gerer les commandes groupees plus tard.
+
+Cette extension ne doit pas retarder le lancement du marche local. Elle doit commencer comme module separe, en mode devis assiste.

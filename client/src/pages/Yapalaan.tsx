@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Clock3,
   CreditCard,
+  Calculator,
   Heart,
   Home,
   LockKeyhole,
@@ -30,7 +31,7 @@ import { activeWariloSource, getWariloDemoData } from "@/lib/warilo/dataSource";
 import { formatFcfa } from "@shared/warilo";
 import type { WariloBuyerDeliveryContact, WariloCourier, WariloDemoData, WariloProduct, WariloSellerProfile } from "@shared/warilo";
 
-type Screen = "home" | "product" | "shop" | "sell" | "checkout" | "orders" | "settings";
+type Screen = "home" | "product" | "shop" | "import" | "sell" | "checkout" | "orders" | "settings";
 type YapalaanThemeId = "forest" | "marine" | "terracotta" | "olive" | "prune" | "turquoise" | "noir-or" | "orange";
 type YapalaanOrder = {
   id: string;
@@ -263,9 +264,9 @@ function useWariloData() {
 const navItems: Array<{ id: Screen; label: string; icon: typeof Home }> = [
   { id: "home", label: "Accueil", icon: Home },
   { id: "shop", label: "Marché", icon: Store },
+  { id: "import", label: "Import", icon: PackageCheck },
   { id: "orders", label: "Suivi", icon: ShoppingBag },
   { id: "sell", label: "Vendre", icon: User },
-  { id: "settings", label: "Régl.", icon: Palette },
 ];
 
 function YapalaanLogo({ compact = false, dark = false }: { compact?: boolean; dark?: boolean }) {
@@ -1733,6 +1734,143 @@ function CheckoutScreen({ setScreen }: { setScreen: (screen: Screen) => void }) 
   );
 }
 
+function ImportScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
+  const [chinaLink, setChinaLink] = useState("");
+  const [requestText, setRequestText] = useState("Montre homme automatique, style premium, budget 150 000 FCFA");
+  const marketplace = chinaLink.includes("1688")
+    ? "1688"
+    : chinaLink.includes("alibaba")
+      ? "Alibaba"
+      : chinaLink.includes("aliexpress")
+        ? "AliExpress"
+        : chinaLink.includes("temu")
+          ? "Temu"
+          : chinaLink.includes("dhgate")
+            ? "DHGate"
+            : chinaLink.includes("made-in-china")
+              ? "Made-in-China"
+              : "Lien Chine";
+  const productCost = chinaLink.trim().length > 0 ? 42000 : 0;
+  const shippingCost = chinaLink.trim().length > 0 ? 18000 : 0;
+  const customsCost = chinaLink.trim().length > 0 ? 12000 : 0;
+  const yapalaanFee = chinaLink.trim().length > 0 ? 8000 : 0;
+  const totalImportCost = productCost + shippingCost + customsCost + yapalaanFee;
+
+  return (
+    <PhoneShell screen="import" setScreen={setScreen}>
+      <div className="h-[calc(100%-32px)] overflow-y-auto bg-[var(--yapa-bg)] px-5 pb-28 pt-3">
+        <header className="flex items-center justify-between">
+          <button onClick={() => setScreen("home")} className="grid size-10 place-items-center rounded-full bg-white">
+            <ChevronLeft className="size-5" />
+          </button>
+          <div className="text-center">
+            <p className="text-sm font-black">Yapalaan Import</p>
+            <p className="text-[10px] font-black text-[var(--yapa-primary)]">Chine vers Abidjan</p>
+          </div>
+          <div className="grid size-10 place-items-center rounded-full bg-[var(--yapa-ink)] text-white">
+            <PackageCheck className="size-5" />
+          </div>
+        </header>
+
+        <section className="pt-6">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#8a7659]">Nouveau module</p>
+          <h2 className="mt-2 text-[34px] font-black leading-[1] text-[var(--yapa-ink)]">Importer depuis la Chine, sans confusion.</h2>
+          <p className="mt-3 text-sm font-bold leading-6 text-[#657066]">
+            Colle un lien Alibaba, 1688, AliExpress, Temu, DHGate ou Made-in-China. Yapalaan estime le coût complet en FCFA et peut acheter pour toi.
+          </p>
+        </section>
+
+        <section className="mt-5 rounded-[30px] bg-white p-4 shadow-[0_12px_30px_rgba(17,24,22,.08)]">
+          <div className="flex items-center gap-2">
+            <Search className="size-5 text-[var(--yapa-primary)]" />
+            <p className="text-sm font-black">Coller un lien produit Chine</p>
+          </div>
+          <input
+            value={chinaLink}
+            onChange={(event) => setChinaLink(event.target.value)}
+            placeholder="https://1688.com/... ou lien Alibaba..."
+            className="mt-3 h-12 w-full rounded-[20px] bg-[var(--yapa-bg)] px-4 text-xs font-bold outline-none"
+          />
+          <div className="mt-3 rounded-[22px] bg-[var(--yapa-soft)] p-3">
+            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#8a7659]">Source détectée</p>
+            <p className="mt-1 text-lg font-black text-[var(--yapa-ink)]">{marketplace}</p>
+          </div>
+        </section>
+
+        <section className="mt-4 rounded-[30px] bg-[var(--yapa-ink)] p-4 text-white">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-black">Calculateur import IA</p>
+              <p className="text-[11px] font-bold text-white/58">Estimation transparente avant paiement</p>
+            </div>
+            <Calculator className="size-5 text-[var(--yapa-primary)]" />
+          </div>
+          <div className="grid gap-2">
+            {[
+              ["Produit", productCost],
+              ["Transport international", shippingCost],
+              ["Douane estimée", customsCost],
+              ["Frais Yapalaan", yapalaanFee],
+            ].map(([label, value]) => (
+              <div key={label as string} className="flex items-center justify-between rounded-[18px] bg-white/10 px-3 py-2">
+                <span className="text-xs font-bold text-white/68">{label as string}</span>
+                <span className="text-xs font-black">{formatFcfa(value as number)}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 rounded-[22px] bg-[var(--yapa-primary)] p-3 text-[var(--yapa-primary-text)]">
+            <p className="text-[10px] font-black uppercase tracking-[0.14em]">Total estimé livré</p>
+            <p className="mt-1 text-2xl font-black">{formatFcfa(totalImportCost)}</p>
+          </div>
+        </section>
+
+        <section className="mt-4 grid grid-cols-2 gap-3">
+          {[
+            ["Traduction IA", "Descriptions chinoises traduites en français."],
+            ["Acheter pour moi", "Yapalaan gère l'achat fournisseur."],
+            ["Recherche image", "Importer à partir d'une photo produit."],
+            ["Commandes groupées", "Réduire transport et douane."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-[24px] bg-white p-4">
+              <p className="text-sm font-black text-[var(--yapa-ink)]">{title}</p>
+              <p className="mt-2 text-[11px] font-bold leading-5 text-[#69746d]">{body}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mt-4 rounded-[30px] bg-white p-4">
+          <p className="text-sm font-black">Demande produit</p>
+          <textarea
+            value={requestText}
+            onChange={(event) => setRequestText(event.target.value)}
+            className="mt-3 min-h-24 w-full resize-none rounded-[22px] bg-[var(--yapa-bg)] p-4 text-xs font-bold leading-5 outline-none"
+          />
+          <div className="mt-3 grid grid-cols-3 gap-2 text-center">
+            {[
+              ["Bronze", "Nouveau"],
+              ["Or", "Fiable"],
+              ["Platine", "Priorité"],
+            ].map(([level, label]) => (
+              <div key={level} className="rounded-[18px] bg-[var(--yapa-bg)] p-3">
+                <p className="text-xs font-black">{level}</p>
+                <p className="mt-1 text-[9px] font-bold text-[#69746d]">{label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <button className="mt-5 h-14 w-full rounded-[24px] bg-[var(--yapa-primary)] text-sm font-black text-[var(--yapa-primary-text)] shadow-[0_14px_28px_rgba(17,24,22,.18)]">
+          Demander un devis import
+        </button>
+
+        <button onClick={() => setScreen("checkout")} className="mt-3 h-12 w-full rounded-[22px] bg-white text-xs font-black text-[var(--yapa-ink)]">
+          Acheter pour moi
+        </button>
+      </div>
+    </PhoneShell>
+  );
+}
+
 function SettingsScreen({
   setScreen,
   selectedThemeId,
@@ -1883,6 +2021,7 @@ function ScreenNotes({ screen }: { screen: Screen }) {
       home: ["Accueil sombre avec motifs kente", "Recherche en français", "Vente flash + catégories", "Navigation basse effet verre"],
       product: ["Carrousel plein écran", "Prix en FCFA", "Protection achat visible", "Vendeur vérifié"],
       shop: ["Micro-boutique vendeur", "Carte de confiance flottante", "Grille à 2 colonnes", "Bouton WhatsApp"],
+      import: ["Lien Chine vers prix FCFA", "Achat assisté", "Commandes groupées", "Devis WhatsApp plus tard"],
       sell: ["Création de boutique", "WhatsApp vendeur", "Premier produit manuel", "Validation par l'équipe"],
       checkout: ["Adresse par repère", "Contacts livraison", "Choix du livreur", "Total avant paiement"],
       orders: ["Suivi de commande", "Assistance WhatsApp", "Litiges", "Avis après livraison"],
@@ -2076,6 +2215,7 @@ export default function SoukCI() {
                     {screen === "home" ? <HomeScreen setScreen={setScreen} /> : null}
                     {screen === "product" ? <ProductScreen setScreen={setScreen} /> : null}
                     {screen === "shop" ? <ShopScreen setScreen={setScreen} /> : null}
+                    {screen === "import" ? <ImportScreen setScreen={setScreen} /> : null}
                     {screen === "sell" ? <SellScreen setScreen={setScreen} /> : null}
                     {screen === "orders" ? <OrdersScreen setScreen={setScreen} /> : null}
                     {screen === "checkout" ? <CheckoutScreen setScreen={setScreen} /> : null}
