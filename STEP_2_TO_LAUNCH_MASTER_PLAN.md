@@ -132,9 +132,16 @@ Demarrer simple :
 
 - Commission vente : 5% a 10%.
 - Commission livraison : 300 a 1 000 FCFA selon cout.
+- Frais service Import Chine : 10%, minimum 5 000 FCFA.
 - Mise en avant produit plus tard.
 - Badge vendeur premium plus tard.
 - Abonnement vendeur seulement apres preuve de ventes.
+
+Strategie recommandee :
+
+- Yapalaan doit monetiser les transactions reussies, pas bloquer les vendeurs avec un abonnement initial.
+- Les services premium viennent apres les premieres preuves de ventes.
+- L'import Chine doit commencer comme devis assiste, pas comme livraison garantie.
 
 Ne pas commencer par abonnement vendeur.
 

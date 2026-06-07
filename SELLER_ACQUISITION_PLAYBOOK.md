@@ -22,6 +22,8 @@ Bonjour, je vous contacte pour Yapalaan, un marche local qui aide les vendeurs a
 - 5 premiers produits ajoutes gratuitement.
 - Badge vendeur verifie offert apres controle.
 - Commission uniquement apres vente.
+- Lien boutique a partager sur WhatsApp, Instagram et TikTok.
+- Possibilite future de pack photo et mise en avant.
 
 ## Checklist vendeur
 
@@ -47,6 +49,10 @@ Pourquoi payer une commission ?
 Je vends deja sur WhatsApp.
 
 > Justement, Yapalaan vous donne un lien plus professionnel a partager sur WhatsApp.
+
+Mes clients me font deja confiance.
+
+> Yapalaan ajoute une preuve visible pour les nouveaux clients qui ne vous connaissent pas encore : score confiance, livraison suivie et avis.
 
 Je ne veux pas bloquer mon argent.
 

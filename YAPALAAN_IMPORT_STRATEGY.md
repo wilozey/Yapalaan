@@ -30,6 +30,13 @@ Pourquoi :
 - cree une difference forte face aux marketplaces locales ;
 - transforme Yapalaan en assistant d'achat international.
 
+## Monetisation MVP
+
+- Frais service standard : 10% du cout produit.
+- Minimum conseille : 5 000 FCFA.
+- Frais plus eleves possibles pour recherche fournisseur, verification fournisseur ou negociation.
+- Commandes groupees : marge sur consolidation et reduction partagee avec le client.
+
 ## Fonctionnalites MVP
 
 ### 1. Coller un lien produit Chine

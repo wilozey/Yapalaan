@@ -59,6 +59,9 @@ const appName = "Yapalaan";
 const appTagline = "Le marché qui rapproche.";
 const unifiedLogoSrc = "/assets/yapalaan-logo-unified.png";
 const unifiedLogoIconSrc = "/assets/yapalaan-logo-icon.png";
+const saleCommissionRate = 0.05;
+const importServiceRate = 0.1;
+const importMinimumFeeFcfa = 5000;
 
 const yapalaanThemes: Array<{
   id: YapalaanThemeId;
@@ -452,6 +455,17 @@ function getCourierCommission(courier: WariloCourier) {
   return courier.yapalaanCommissionFcfa ?? Math.max(300, Math.round(courier.deliveryFeeFcfa * 0.12));
 }
 
+function getTrustScore(seller: WariloSellerProfile) {
+  let score = 50;
+  if (seller.verificationStatus === "verified") score += 20;
+  if (seller.phone) score += 8;
+  if (seller.whatsapp) score += 8;
+  if (seller.locationLabel) score += 8;
+  if (seller.rating >= 4.5) score += 6;
+
+  return Math.min(100, score);
+}
+
 function normalizeSearch(value: string) {
   return value
     .toLowerCase()
@@ -682,6 +696,7 @@ function ProductScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
   const purchaseInfo = getProductPurchaseInfo(featuredProduct);
   const savingsPercent = getSavingsPercent(featuredProduct, purchaseInfo.estimate);
   const referencePrice = purchaseInfo.estimate && purchaseInfo.estimate > featuredProduct.priceFcfa ? purchaseInfo.estimate : featuredProduct.oldPriceFcfa;
+  const trustScore = getTrustScore(seller);
 
   return (
     <PhoneShell screen="product" setScreen={setScreen}>
@@ -780,6 +795,16 @@ function ProductScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
                 <p className="text-[10px] font-bold text-[#7d857f]">{seller.reviewCount} avis</p>
               </div>
             </div>
+            <div className="mt-4 rounded-[22px] bg-[var(--yapa-bg)] p-3">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#8a7659]">Score confiance</p>
+                <p className="text-sm font-black text-[var(--yapa-ink)]">{trustScore}/100</p>
+              </div>
+              <div className="mt-2 h-2 overflow-hidden rounded-full bg-white">
+                <div className="h-full rounded-full bg-[var(--yapa-primary)]" style={{ width: `${trustScore}%` }} />
+              </div>
+              <p className="mt-2 text-[11px] font-bold leading-5 text-[#69746d]">Téléphone, WhatsApp, géolocalisation, avis et contrôle Yapalaan.</p>
+            </div>
           </div>
 
           <button
@@ -817,6 +842,7 @@ function ShopScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
     });
   };
   const sortLabel = sortMode === "recent" ? "Trier" : sortMode === "price-asc" ? "Prix +" : "Prix -";
+  const trustScore = getTrustScore(seller);
 
   return (
     <PhoneShell screen="shop" setScreen={setScreen}>
@@ -866,6 +892,7 @@ function ShopScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
             <p className="flex items-center gap-2"><BadgeCheck className="size-4 text-[var(--yapa-primary)]" /> Boutique officielle Yapalaan</p>
             <p className="flex items-center gap-2"><ShieldCheck className="size-4 text-[var(--yapa-primary)]" /> Produits contrôlés avant remise au livreur</p>
             <p className="flex items-center gap-2"><MapPin className="size-4 text-[var(--yapa-primary)]" /> Géolocalisation boutique fournie</p>
+            <p className="flex items-center gap-2"><LockKeyhole className="size-4 text-[var(--yapa-primary)]" /> Score confiance : {trustScore}/100</p>
           </div>
         </section>
 
@@ -1753,7 +1780,8 @@ function ImportScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
   const productCost = chinaLink.trim().length > 0 ? 42000 : 0;
   const shippingCost = chinaLink.trim().length > 0 ? 18000 : 0;
   const customsCost = chinaLink.trim().length > 0 ? 12000 : 0;
-  const yapalaanFee = chinaLink.trim().length > 0 ? 8000 : 0;
+  const calculatedImportFee = Math.round(productCost * importServiceRate);
+  const yapalaanFee = chinaLink.trim().length > 0 ? Math.max(importMinimumFeeFcfa, calculatedImportFee) : 0;
   const totalImportCost = productCost + shippingCost + customsCost + yapalaanFee;
 
   return (
@@ -1821,6 +1849,7 @@ function ImportScreen({ setScreen }: { setScreen: (screen: Screen) => void }) {
           <div className="mt-3 rounded-[22px] bg-[var(--yapa-primary)] p-3 text-[var(--yapa-primary-text)]">
             <p className="text-[10px] font-black uppercase tracking-[0.14em]">Total estimé livré</p>
             <p className="mt-1 text-2xl font-black">{formatFcfa(totalImportCost)}</p>
+            <p className="mt-1 text-[10px] font-bold opacity-75">Frais service : {Math.round(importServiceRate * 100)}% avec minimum {formatFcfa(importMinimumFeeFcfa)}</p>
           </div>
         </section>
 
@@ -1885,6 +1914,9 @@ function SettingsScreen({
   const { addDemoCourier, removeCourier, updateCourier } = useContext(CourierAdminContext);
   const totalDeliveryRevenue = allCouriers.reduce((sum, courier) => sum + courier.deliveryFeeFcfa, 0);
   const totalCommission = allCouriers.reduce((sum, courier) => sum + getCourierCommission(courier), 0);
+  const averageBasketFcfa = 100000;
+  const projectedSaleCommission = Math.round(averageBasketFcfa * saleCommissionRate);
+  const projectedImportFee = Math.max(importMinimumFeeFcfa, Math.round(averageBasketFcfa * importServiceRate));
 
   return (
     <PhoneShell screen="settings" setScreen={setScreen}>
@@ -1932,6 +1964,24 @@ function SettingsScreen({
               <p className="mt-1 text-sm font-black text-[var(--yapa-ink)]">{value}</p>
             </div>
           ))}
+        </section>
+
+        <section className="mt-4 rounded-[28px] bg-[var(--yapa-ink)] p-4 text-white">
+          <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[var(--yapa-primary)]">Monétisation MVP</p>
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {[
+              ["Vente", formatFcfa(projectedSaleCommission), `${Math.round(saleCommissionRate * 100)}%`],
+              ["Livraison", formatFcfa(totalCommission), "Commission"],
+              ["Import", formatFcfa(projectedImportFee), "Service"],
+            ].map(([label, value, note]) => (
+              <div key={label} className="rounded-[20px] bg-white/10 p-3">
+                <p className="text-[10px] font-black text-white/58">{label}</p>
+                <p className="mt-1 text-xs font-black">{value}</p>
+                <p className="mt-1 text-[9px] font-bold text-white/48">{note}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[11px] font-bold leading-5 text-white/62">Objectif : gagner sur transaction réussie, livraison suivie, devis import et services vendeurs, sans abonnement au départ.</p>
         </section>
 
         <section className="mt-4 rounded-[28px] bg-white p-4">

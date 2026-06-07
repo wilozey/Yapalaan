@@ -8,6 +8,10 @@ Yapalaan n'est pas seulement un catalogue. C'est un achat local plus sur.
 
 > Achetez local sans peur.
 
+## Message secondaire Import
+
+> Importez depuis la Chine avec un prix clair en FCFA.
+
 ## Angles de contenu
 
 - Produit disponible maintenant.
@@ -16,6 +20,8 @@ Yapalaan n'est pas seulement un catalogue. C'est un achat local plus sur.
 - Vendeur controle.
 - Paiement protege.
 - Litige possible si probleme.
+- Score confiance vendeur.
+- Devis import transparent.
 
 ## Canaux prioritaires
 
@@ -49,3 +55,7 @@ Video 2 :
 Video 3 :
 
 > Ce produit est disponible maintenant. Prix visible, livraison visible, vendeur controle. Yapalaan, le marche qui rapproche.
+
+Video 4 :
+
+> Tu as vu un produit sur Alibaba ou 1688 ? Colle le lien dans Yapalaan Import et demande un prix estime en FCFA avant de payer.

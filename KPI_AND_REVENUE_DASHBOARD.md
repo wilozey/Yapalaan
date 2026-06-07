@@ -29,6 +29,7 @@ Phase pilote :
 
 - Commission vente : 5%.
 - Commission livraison : 300 a 500 FCFA.
+- Frais "Acheter pour moi" import : 10%, minimum 5 000 FCFA.
 - Pas d'abonnement.
 
 Phase croissance :
@@ -37,6 +38,18 @@ Phase croissance :
 - Mise en avant produit.
 - Badge vendeur premium.
 - Pack photo produit.
+- Commandes groupees Chine avec marge consolidation.
+- Recherche fournisseur Chine premium.
+
+## Sources de revenu a suivre
+
+- Commission vente locale.
+- Commission livraison.
+- Frais service import.
+- Pack photo vendeur.
+- Mise en avant produit.
+- Verification vendeur premium.
+- Commande groupee import.
 
 ## Tableau quotidien minimal
 
@@ -50,3 +63,6 @@ Chaque soir :
 - Commission estimee.
 - Vendeurs actifs.
 - Produits en rupture.
+- Devis import demandes.
+- Devis import payes.
+- Revenu import estime.

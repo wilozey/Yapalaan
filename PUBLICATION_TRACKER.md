@@ -16,6 +16,10 @@ Statut : **préparé, exécution terrain requise**
 - [x] Playbook marketing acheteurs.
 - [x] Calendrier contenu 60 jours.
 - [x] Tableau KPI et revenus.
+- [x] Plan monetisation et leadership marche.
+- [x] Score confiance ajoute dans l'interface.
+- [x] Frais service Import affiches dans l'interface.
+- [x] Panneau monetisation MVP ajoute aux reglages.
 - [ ] Recruter 50 vendeurs vérifiés.
 - [ ] Obtenir 100 commandes réussies.
 - [ ] Valider taux de livraison réussie de 90%.
@@ -29,6 +33,7 @@ Statut : **MVP visuel prepare, backend a connecter**
 - [x] Ajouter ecran mobile `Import`.
 - [x] Ajouter lien Chine vers estimation FCFA.
 - [x] Ajouter calculateur cout produit, transport, douane et frais Yapalaan.
+- [x] Ajouter frais service import : 10%, minimum 5 000 FCFA.
 - [x] Ajouter demande produit et achat assiste dans l'interface.
 - [x] Documenter phases Chine : lien, 1688, commandes groupees, consolidation, reseau africain.
 - [ ] Creer table Supabase `import_requests`.
@@ -182,4 +187,4 @@ Statut : **préparée, bloquée volontairement**
 
 ## Prochaine action active
 
-Etape 2 a la publication preparee et module Yapalaan Import ajoute. Prochaine action obligatoire : deployer l'Edge Function `create-checkout-order`, connecter le backend import, finaliser le paiement test, puis commencer le recrutement vendeur avec le playbook.
+Etape 2 a la publication preparee, module Import ajoute et monetisation clarifiee. Prochaine action obligatoire : deployer l'Edge Function `create-checkout-order`, connecter le backend import, finaliser le paiement test, puis commencer le recrutement vendeur avec le playbook.

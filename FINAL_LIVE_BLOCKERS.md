@@ -41,6 +41,8 @@ Date : 2026-05-27
 - Playbooks vendeur, acheteur, confiance, contenu et KPI ajoutes.
 - Interface ajustee pour eviter les promesses marketing non encore prouvees.
 - Module Yapalaan Import ajoute en MVP visuel.
+- Score confiance et monetisation MVP ajoutes dans l'interface.
+- Plan monetisation et leadership ajoute.
 
 ## Blocages Import
 
