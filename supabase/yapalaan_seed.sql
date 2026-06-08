@@ -55,6 +55,23 @@ insert into public.warilo_products (
   status
 ) values
 (
+  '22222222-0011-4222-8222-222222222222',
+  '11111111-1111-4111-8111-111111111111',
+  'Baylis & Harding Goodness Oud, Cedar & Amber',
+  'Gel lavant naturel 1 litre Baylis & Harding Goodness, parfum Oud, Cèdre et Ambre, avec une signature chaude, boisée et élégante.',
+  'Beauté',
+  'other',
+  'Baylis & Harding',
+  'Un grand format pratique pour la maison, idéal pour une routine douche parfumée. Notes de tête orange, citron et bergamote, cœur jasmin et basilic, fond oud, cèdre, ambre et bois de santal.',
+  'Neuf, flacon pompe 1 litre',
+  'Produit vendu par l''équipe Yapalaan. 98% d''origine naturelle selon l''étiquette du produit.',
+  15000,
+  10000,
+  '["/assets/yapalaan-product-oud-cedar-amber-body-wash.png"]'::jsonb,
+  5,
+  'active'
+),
+(
   '22222222-0001-4222-8222-222222222222',
   '11111111-1111-4111-8111-111111111111',
   'Adidas Gazelle Lux Spikeless Golf Shoes',
